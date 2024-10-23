@@ -27,8 +27,8 @@ import "./errors/Errors.sol";
  * @title SaniksinBridge
  * @author Oleksandr Makedon
  * @notice This contract is deployed on the following networks::
- * - Polygon zkEVM Cardona Testnet
- * - opBNB Testnet
+ * - Polygon Amoy Testnet
+ * - BSC Testnet
  */
 contract SaniksinBridge is Ownable, Pausable, ReentrancyGuard {
     /**

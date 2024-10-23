@@ -1,13 +1,13 @@
-# opBNB and Polygon zkEVM Deployment Example
+# BSC Testnet and Polygon Testnet Deployment Example
 
-This project demonstrates how to deploy and verify smart contracts on opBNB Testnet and Polygon zkEVM Testnet. The project is created for educational purposes as part of practice for OTUS.
+This project demonstrates how to deploy and verify smart contracts on BSC Testnet and Polygon Testnet. The project is created for educational purposes as part of practice for OTUS.
 
 ## Project Overview
 
 The provided Hardhat configuration allows deployment and interaction with two networks:
 
-- **opBNB Testnet**: Deployed using the opBNB RPC endpoint.
-- **Polygon zkEVM Testnet**: Deployed using the Polygon zkEVM Testnet RPC endpoint.
+- **BSC Testnet**: Deployed using the BSC RPC endpoint.
+- **Polygon Testnet**: Deployed using the Polygon Testnet RPC endpoint.
 
 ## Step-by-Step Guide
 
@@ -38,7 +38,7 @@ Running the tests will give you a better insight into the behavior of the smart 
 To deploy the contracts on the Polygon and BNB networks, you need to set up environment variables:
 
 - `COINMARKETCAP_KEY=` *(optional)*
-- `BNB_RPC_URL=https://bsc-testnet-rpc.publicnode.com` *(required)*
+- `BSC_RPC_URL=https://bsc-testnet-rpc.publicnode.com` *(required)*
 - `POLYGON_RPC_URL=https://polygon-amoy-bor-rpc.publicnode.com` *(required)*
 - `OWNER_PRIVATE_KEY=` *(required)*
 - `SIGNER_PRIVATE_KEY=` *(required)*
@@ -77,17 +77,17 @@ If you encounter verification errors, retry with the following commands:
 
 After deployment, you need to initialize the contracts' states. Set the following environment variables:
 
-- `ZK_BRIDGE_ADDRESS=` *(required)* Polygon bridge address
-- `BNB_BRIDGE_ADDRESS=` *(required)* BNB bridge address
-- `ZK_TOKEN_ADDRESS=` *(required)* Polygon token address
-- `BNB_TOKEN_ADDRESS=` *(required)* BNB token address
+- `POLYGON_BRIDGE_ADDRESS=` *(required)* Polygon bridge address
+- `BSC_BRIDGE_ADDRESS=` *(required)* BNB bridge address
+- `POLYGON_TOKEN_ADDRESS=` *(required)* Polygon token address
+- `BSC_TOKEN_ADDRESS=` *(required)* BNB token address
 
 These variables are necessary to properly configure the bridge and token contracts for interaction.
 
 ## Key Features
 
 - **Educational Focus**: This project is designed to help you understand smart contracts and blockchain deployments through practice.
-- **Multiple Network Deployment**: Deploys to both the Polygon zkEVM Testnet and BNB Testnet.
+- **Multiple Network Deployment**: Deploys to both the Polygon Testnet and BSC Testnet.
 - **Verification and Troubleshooting**: Easy commands for verifying contracts and addressing verification issues.
 
 Feel free to explore the contracts, run the tests, and try out the deployments to deepen your understanding of blockchain development.

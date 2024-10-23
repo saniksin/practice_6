@@ -4,13 +4,13 @@ import fs from "fs";
 
 
 // Load environment variables for the RPC endpoints and private keys
-const { BNB_RPC_URL, POLYGON_RPC_URL, SIGNER_PRIVATE_KEY, ZK_TOKEN_ADDRESS, BNB_TOKEN_ADDRESS } = process.env;
-if (!BNB_RPC_URL || !POLYGON_RPC_URL || !SIGNER_PRIVATE_KEY) {
-  throw new Error("Please set BNB_RPC_URL, POLYGON_RPC_URL, and SIGNER_PRIVATE_KEY in the .env file");
+const { BSC_RPC_URL, POLYGON_RPC_URL, SIGNER_PRIVATE_KEY, POLYGON_TOKEN_ADDRESS, BSC_TOKEN_ADDRESS } = process.env;
+if (!BSC_RPC_URL || !POLYGON_RPC_URL || !SIGNER_PRIVATE_KEY) {
+  throw new Error("Please set BSC_RPC_URL, POLYGON_RPC_URL, and SIGNER_PRIVATE_KEY in the .env file");
 }
 
 // Connect to both BNB and Polygon networks
-const bnbProvider = new ethers.JsonRpcProvider(BNB_RPC_URL);
+const bnbProvider = new ethers.JsonRpcProvider(BSC_RPC_URL);
 const signerBnb = new ethers.Wallet(SIGNER_PRIVATE_KEY, bnbProvider);
 
 const polygonProvider = new ethers.JsonRpcProvider(POLYGON_RPC_URL);
@@ -81,14 +81,14 @@ const bridgeABI = [
 ];
 
 // Load environment variables for the RPC endpoints and private keys
-const { BNB_BRIDGE_ADDRESS, ZK_BRIDGE_ADDRESS } = process.env;
-if (!BNB_BRIDGE_ADDRESS || !ZK_BRIDGE_ADDRESS ) {
-  throw new Error("Please set BNB_BRIDGE_ADDRESS, ZK_BRIDGE_ADDRESS in the .env file");
+const { BSC_BRIDGE_ADDRESS, POLYGON_BRIDGE_ADDRESS } = process.env;
+if (!BSC_BRIDGE_ADDRESS || !POLYGON_BRIDGE_ADDRESS ) {
+  throw new Error("Please set BSC_BRIDGE_ADDRESS, POLYGON_BRIDGE_ADDRESS in the .env file");
 }
 
 // Addresses of the bridge contracts on both networks
-const bnbBridgeAddress = BNB_BRIDGE_ADDRESS;
-const polygonBridgeAddress = ZK_BRIDGE_ADDRESS;
+const bnbBridgeAddress = BSC_BRIDGE_ADDRESS;
+const polygonBridgeAddress = POLYGON_BRIDGE_ADDRESS;
 
 // Create contract instances
 const bnbBridgeContract = new ethers.Contract(bnbBridgeAddress, bridgeABI, signerBnb);
@@ -131,9 +131,9 @@ async function processEvents() {
           Amount: ${ethers.formatEther(args.amount)} ETH`);
   
         if (args.chainId == 80002) { // Assuming 80002 is the Polygon Testnet Chain ID
-          const tx = await polygonBridgeContract.mintTokenToUserAfterBridge(args.recipient, ZK_TOKEN_ADDRESS, args.amount);
+          const tx = await polygonBridgeContract.mintTokenToUserAfterBridge(args.recipient, POLYGON_TOKEN_ADDRESS, args.amount);
           const receipt = await tx.wait();
-          console.log(`Minted ${ethers.formatEther(args.amount)} tokens to ${args.recipient} on Polygon zkEVM Testnet. Transaction Hash: ${receipt.hash}`);
+          console.log(`Minted ${ethers.formatEther(args.amount)} tokens to ${args.recipient} on Polygon Amoy Testnet. Transaction Hash: ${receipt.hash}`);
           saveProcessedEvent(eventId);
         }
       }
@@ -147,7 +147,7 @@ async function processEvents() {
         }
 
         const args = event.args as any;
-        console.log(`Deposit detected on Polygon zkEVM Testnet: 
+        console.log(`Deposit detected on Polygon Amoy Testnet: 
           From: ${args.from}, 
           Recipient: ${args.recipient}, 
           Token: ${args.token}, 
@@ -155,7 +155,7 @@ async function processEvents() {
           Amount: ${ethers.formatEther(args.amount)} ETH`);
         
         if (args.chainId == 97) { // Assuming 97 is the BNB Testnet Chain ID
-          const tx = await bnbBridgeContract.mintTokenToUserAfterBridge(args.recipient, BNB_TOKEN_ADDRESS, args.amount);
+          const tx = await bnbBridgeContract.mintTokenToUserAfterBridge(args.recipient, BSC_TOKEN_ADDRESS, args.amount);
           const receipt = await tx.wait();
           console.log(`Minted ${ethers.formatEther(args.amount)} tokens to ${args.recipient} on BNB Testnet. Transaction Hash: ${receipt.hash}`);
           saveProcessedEvent(eventId);

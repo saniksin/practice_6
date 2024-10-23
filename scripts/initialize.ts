@@ -27,12 +27,12 @@ async function main() {
     let AllowedChaindId: number;
 
     if (network.name === "BNBtestnet") {
-        bridgeAddress = process.env.BNB_BRIDGE_ADDRESS!;
-        tokenAddress = process.env.BNB_TOKEN_ADDRESS!;
+        bridgeAddress = process.env.BSC_BRIDGE_ADDRESS!;
+        tokenAddress = process.env.BSC_TOKEN_ADDRESS!;
         AllowedChaindId = 80002;
     } else if (network.name === "polygonAmoyTestnet") {
-        bridgeAddress = process.env.ZK_BRIDGE_ADDRESS!;
-        tokenAddress = process.env.ZK_TOKEN_ADDRESS!;
+        bridgeAddress = process.env.POLYGON_BRIDGE_ADDRESS!;
+        tokenAddress = process.env.POLYGON_TOKEN_ADDRESS!;
         AllowedChaindId = 97;
     }
 

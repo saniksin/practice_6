@@ -22,34 +22,34 @@ function checkRequirements() {
   const {
       OWNER_PRIVATE_KEY,
       SIGNER_PRIVATE_KEY,
-      BNB_BRIDGE_ADDRESS,
-      BNB_TOKEN_ADDRESS,
-      ZK_BRIDGE_ADDRESS,
-      ZK_TOKEN_ADDRESS
+      BSC_BRIDGE_ADDRESS,
+      BSC_TOKEN_ADDRESS,
+      POLYGON_BRIDGE_ADDRESS,
+      POLYGON_TOKEN_ADDRESS
   } = process.env;
 
   if (network.name === "BNBtestnet") {
       if (
           !OWNER_PRIVATE_KEY ||
           !SIGNER_PRIVATE_KEY ||
-          !BNB_BRIDGE_ADDRESS ||
-          !BNB_TOKEN_ADDRESS
+          !BSC_BRIDGE_ADDRESS ||
+          !BSC_TOKEN_ADDRESS
       ) {
           throw new Error(
               "Please set your OWNER_PRIVATE_KEY, SIGNER_PRIVATE_KEY, " +
-              "BNB_BRIDGE_ADDRESS, and BNB_TOKEN_ADDRESS in the .env file"
+              "BSC_BRIDGE_ADDRESS, and BSC_TOKEN_ADDRESS in the .env file"
           );
       }
   } else if (network.name === "polygonAmoyTestnet") {
       if (
           !OWNER_PRIVATE_KEY ||
           !SIGNER_PRIVATE_KEY ||
-          !ZK_BRIDGE_ADDRESS ||
-          !ZK_TOKEN_ADDRESS
+          !POLYGON_BRIDGE_ADDRESS ||
+          !POLYGON_TOKEN_ADDRESS
       ) {
           throw new Error(
               "Please set your OWNER_PRIVATE_KEY, SIGNER_PRIVATE_KEY, " +
-              "ZK_BRIDGE_ADDRESS, and ZK_TOKEN_ADDRESS in the .env file"
+              "POLYGON_BRIDGE_ADDRESS, and POLYGON_TOKEN_ADDRESS in the .env file"
           );
       }
   } else {

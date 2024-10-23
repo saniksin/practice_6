@@ -18,7 +18,7 @@ const config: HardhatUserConfig = {
   },
   networks: {
     BNBtestnet: {
-      url: process.env.BNB_RPC_URL,
+      url: process.env.BSC_RPC_URL,
       chainId: 97,
       accounts: [
         process.env.OWNER_PRIVATE_KEY || "",
