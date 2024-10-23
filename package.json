@@ -16,8 +16,7 @@
     "deploy-BNBtestnet-bridge": "npx hardhat ignition deploy ignition/modules/Bridge.ts --network BNBtestnet --verify",
     "deploy-polygonAmoyTestnet-token": "npx hardhat ignition deploy ignition/modules/Token.ts --network polygonAmoyTestnet --verify",
     "deploy-polygonAmoyTestnet-bridge": "npx hardhat ignition deploy ignition/modules/Bridge.ts --network polygonAmoyTestnet --verify",
-    "initialize bnb": "npx hardhat run scripts/initialize.ts --network BNBtestnet",
-    "initialize poligon": "npx hardhat run scripts/initialize.ts --network polygonAmoyTestnet"
+    "start listen": "npx hardhat run scripts/listen.ts --network polygonAmoyTestnet"
   }
 
 }

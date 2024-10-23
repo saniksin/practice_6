@@ -1,22 +1,7 @@
 import { ethers, network } from "hardhat";
 import "dotenv/config";
-import { checkRequirements, checkBalance } from "./checkRequirements";
+import { checkRequirements, checkBalance, estimateGasWithMultiplier } from "./checkRequirements";
 import { SaniksinBridge__factory, MyERC20Token__factory } from "../typechain-types";
-import { Addressable } from "ethers";
-
-async function estimateGasWithMultiplier(
-  to: string | Addressable, 
-  from: string | Addressable, 
-  data: string, 
-  multiplier: number = 1.5
-) {
-    const estimatedGas = await ethers.provider.estimateGas({
-        to,
-        from,
-        data
-    });
-    return estimatedGas * BigInt(Math.round(multiplier * 100)) / BigInt(100);
-}
 
 async function main() {
     // проверяем зависимости

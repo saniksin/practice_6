@@ -38,6 +38,8 @@ Running the tests will give you a better insight into the behavior of the smart 
 To deploy the contracts on the Polygon and BNB networks, you need to set up environment variables:
 
 - `COINMARKETCAP_KEY=` *(optional)*
+- `BNB_RPC_URL=https://bsc-testnet-rpc.publicnode.com` *(required)*
+- `POLYGON_RPC_URL=https://polygon-amoy-bor-rpc.publicnode.com` *(required)*
 - `OWNER_PRIVATE_KEY=` *(required)*
 - `SIGNER_PRIVATE_KEY=` *(required)*
 - `BNBSCAN_API_KEY=` *(required)*
@@ -92,9 +94,20 @@ Feel free to explore the contracts, run the tests, and try out the deployments t
 
 - For Polygon:
   ```bash
-  npm run initialize bnb
+  npx hardhat run scripts/initialize.ts --network BNBtestnet 
   ```
 - For Binance Smart Chain:
   ```bash
-  npm run initialize polygon
+  npx hardhat run scripts/initialize.ts --network polygonAmoyTestnet 
   ```
+
+## 7. Running Cross-Chain Listening and Minting
+
+- The script listens for deposits on one chain and automatically mints equivalent tokens on the other chain. Make sure that the signer wallet has enough funds to cover the transaction fees on both networks before running the script.
+
+- To initiate the event listener and ensure the bridge is active, use the following command:
+
+  ```bash
+  npx hardhat run scripts/listen.ts
+  ```
+

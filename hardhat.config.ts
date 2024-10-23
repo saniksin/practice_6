@@ -18,7 +18,7 @@ const config: HardhatUserConfig = {
   },
   networks: {
     BNBtestnet: {
-      url: "https://bsc-testnet-rpc.publicnode.com",
+      url: process.env.BNB_RPC_URL,
       chainId: 97,
       accounts: [
         process.env.OWNER_PRIVATE_KEY || "",
@@ -27,7 +27,7 @@ const config: HardhatUserConfig = {
       gasPrice: "auto"
     },
     polygonAmoyTestnet: {
-      url: "https://polygon-amoy-bor-rpc.publicnode.com",
+      url: process.env.POLYGON_RPC_URL,
       chainId: 80002,
       accounts: [
         process.env.OWNER_PRIVATE_KEY || "",

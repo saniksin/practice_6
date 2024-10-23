@@ -1,5 +1,21 @@
 import { ethers, network } from "hardhat";
 import { SignerWithAddress } from "@nomicfoundation/hardhat-ethers/signers";
+import { Addressable } from "ethers";
+
+
+async function estimateGasWithMultiplier(
+  to: string | Addressable, 
+  from: string | Addressable, 
+  data: string, 
+  multiplier: number = 1.5
+) {
+    const estimatedGas = await ethers.provider.estimateGas({
+        to,
+        from,
+        data
+    });
+    return estimatedGas * BigInt(Math.round(multiplier * 100)) / BigInt(100);
+}
 
 
 function checkRequirements() {
@@ -61,4 +77,4 @@ async function checkBalance(
 }
 
 
-export { checkRequirements, checkBalance }
+export { checkRequirements, checkBalance, estimateGasWithMultiplier}
