@@ -9,7 +9,7 @@ import "./errors/Errors.sol";
 contract MyERC20Token is ERC20 {
     // владелец 
     address immutable public owner;
-    address immutable bridge;
+    address public bridge;
 
     // Модификатор проверяет, что данную функцию может вызывать только владелец контракта или менеджер.
     modifier onlyAuthorized() {
@@ -23,16 +23,10 @@ contract MyERC20Token is ERC20 {
 
     /**
      * @dev Конструктор вызывается при создании контракта
-     * @param _owner - адрес владальца токена
      */
     constructor(
-        address _owner, 
-        address _bridge,
-        string memory _name, 
-        string memory _symbol
-    ) ERC20(_name, _symbol) {
-        owner = _owner;
-        bridge = _bridge;
+    ) ERC20("Saniksin USD", "SanUSD") {
+        owner = msg.sender;
     }
 
     /**
@@ -55,5 +49,13 @@ contract MyERC20Token is ERC20 {
     function burn(address from, uint256 amount) external onlyAuthorized returns(bool status) {
         _burn(from, amount);
         status = true;
+    }
+
+    /**
+     * @dev Вызывается для минта токенов, может быть вызвана только владельцем или мостом
+     * @param _bridgeAddress - добавляет контракт моста.
+     */
+    function setUpBridge(address _bridgeAddress) external onlyAuthorized {
+        bridge = _bridgeAddress;
     }
 }

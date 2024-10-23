@@ -5,93 +5,96 @@ This project demonstrates how to deploy and verify smart contracts on opBNB Test
 ## Project Overview
 
 The provided Hardhat configuration allows deployment and interaction with two networks:
+
 - **opBNB Testnet**: Deployed using the opBNB RPC endpoint.
 - **Polygon zkEVM Testnet**: Deployed using the Polygon zkEVM Testnet RPC endpoint.
 
-## To Set Up the Project:
+## Step-by-Step Guide
 
-1. **Install Dependencies**:
+### 1. Install Dependencies
 
-   Install necessary dependencies using npm:
+Install necessary dependencies using npm:
 
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
-2. **Create Environment Variables File (.env)**:
+### 2. Understand the Contracts
 
-   Create a `.env` file in the root directory and add the following environment variables:
+Begin by reading through the contracts to understand their purpose and how their functions interact. This will help in understanding their intended behavior.
 
-   ```
-   OWNER_PRIVATE_KEY=<your_owner_private_key>
-   SIGNER_PRIVATE_KEY=<your_signer_private_key>
-   POLYGONSCAN_API_KEY=<your_polygonscan_api_key>
-   BSCSCAN_API_KEY=<your_bscscan_api_key>
-   COINMARKETCAP_KEY=<your_coinmarketcap_api_key>
-   ```
+### 2. Run Tests
 
-3. **Deploy the Contracts**:
+To ensure everything is working as expected, run the following command to execute the tests:
 
-   Deploy the contracts to the desired network. Make sure to specify the correct network when running the script:
+```bash
+npx hardhat test
+```
 
-   ```bash
-   npx hardhat run scripts/deploy.ts --network opBNBtestnet
-   npx hardhat run scripts/deploy.ts --network polygonZkEVMTestnet
-   ```
+Running the tests will give you a better insight into the behavior of the smart contracts.
 
-4. **Verify the Contracts**:
+### 3. Set Up Environment Variables
 
-   After deploying, the contracts can be verified on the respective blockchain explorers (BscScan or PolygonScan). Verification is handled automatically in the deployment script if the required API keys are provided.
+To deploy the contracts on the Polygon and BNB networks, you need to set up environment variables:
+
+- `COINMARKETCAP_KEY=` *(optional)*
+- `OWNER_PRIVATE_KEY=` *(required)*
+- `SIGNER_PRIVATE_KEY=` *(required)*
+- `BNBSCAN_API_KEY=` *(required)*
+- `POLYGONSCAN_API_KEY=` *(required)*
+
+These variables are essential to interact with the blockchain, verify contracts, and for API access.
+
+### 4. Deploy Contracts
+
+To deploy the bridge and token contracts on different networks, use the following commands by running them with npm:
+
+```bash
+npm run deploy-BNBtestnet-token
+npm run deploy-BNBtestnet-bridge
+npm run deploy-polygonAmoyTestnet-token
+npm run deploy-polygonAmoyTestnet-bridge
+```
+
+These commands will deploy the token and bridge contracts to their respective networks.
+
+### 5. Verification Issues
+
+If you encounter verification errors, retry with the following commands:
+
+- For Polygon:
+  ```bash
+  npx hardhat ignition verify chain-80002 --include-unrelated-contracts
+  ```
+- For Binance Smart Chain:
+  ```bash
+  npx hardhat ignition verify chain-97 --include-unrelated-contracts
+  ```
+
+### 6. Initialize Contracts
+
+After deployment, you need to initialize the contracts' states. Set the following environment variables:
+
+- `ZK_BRIDGE_ADDRESS=` *(required)* Polygon bridge address
+- `BNB_BRIDGE_ADDRESS=` *(required)* BNB bridge address
+- `ZK_TOKEN_ADDRESS=` *(required)* Polygon token address
+- `BNB_TOKEN_ADDRESS=` *(required)* BNB token address
+
+These variables are necessary to properly configure the bridge and token contracts for interaction.
 
 ## Key Features
 
-- **opBNB and Polygon zkEVM Deployment**: The Hardhat config supports deploying contracts to opBNB and Polygon zkEVM testnets.
-- **Etherscan Verification**: Verification on the corresponding network explorer using the provided API keys.
-- **Optimized Solidity Version**: The project uses Solidity `0.8.27` with optimization enabled for efficient bytecode.
+- **Educational Focus**: This project is designed to help you understand smart contracts and blockchain deployments through practice.
+- **Multiple Network Deployment**: Deploys to both the Polygon zkEVM Testnet and BNB Testnet.
+- **Verification and Troubleshooting**: Easy commands for verifying contracts and addressing verification issues.
 
-## Hardhat Configuration Highlights
+Feel free to explore the contracts, run the tests, and try out the deployments to deepen your understanding of blockchain development.
 
-- **Networks Configuration**:
-  - **opBNB Testnet**: RPC URL and Chain ID for opBNB are set.
-  - **Polygon zkEVM Testnet**: RPC URL and Chain ID for Polygon zkEVM are configured.
-
-- **Etherscan API Configuration**: Custom configuration for contract verification on both networks using `BSCSCAN_API_KEY` and `POLYGONSCAN_API_KEY`.
-
-- **Gas Reporting**: Gas reporting is disabled by default. It can be enabled by setting `enabled: true` under the `gasReporter` section.
-
-## To Run Tests:
-
-1. **Compile the Contracts**:
-
-   Compile the contracts to ensure everything is up to date:
-
-   ```bash
-   npx hardhat compile
-   ```
-
-2. **Run the Tests**:
-
-   Execute the tests using Hardhat:
-
-   ```bash
-   npx hardhat test
-   ```
-
-   ### Types of Tests
-
-   - **Stateless Tests**: These tests focus on verifying individual functions in isolation without relying on a specific state. This is useful for ensuring that basic contract behavior (such as input validation or individual function correctness) works as expected without depending on previous interactions.
-     
-   - **Stateful Tests**: These tests validate the full lifecycle of contract interactions, such as creating liquidity pools, performing swaps, or bridging tokens end-to-end. Stateful tests are particularly useful for scenarios that require maintaining consistency across multiple transactions or validating complex workflows.
-
-## Troubleshooting
-
-- **Invalid API Key Error**: Make sure your `.env` file contains valid API keys for BscScan and PolygonScan.
-- **Verification Failure**: If verification fails, ensure the contract is deployed correctly and wait for a few minutes before retrying verification.
-
-## Additional Notes
-
-- **Environment Variables**: Ensure that `.env` variables are correctly set up before running any script to avoid deployment issues.
-- **Supported Networks**: The project is configured for opBNB and Polygon zkEVM testnets, but additional networks can be added if needed.
-
-Feel free to modify the configuration and use this as a starting point for your projects involving multiple blockchain deployments.
-
+- For Polygon:
+  ```bash
+  npm run initialize bnb
+  ```
+- For Binance Smart Chain:
+  ```bash
+  npm run initialize polygon
+  ```

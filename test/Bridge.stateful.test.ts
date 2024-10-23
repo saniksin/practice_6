@@ -35,13 +35,16 @@ describe("SaniksinBridge - тесты моста и токена (stateful)", fu
 
         // Развёртывание контракта MyERC20Token
         const ERC20TokenFactory = await ethers.getContractFactory("MyERC20Token");
-        token = await ERC20TokenFactory.deploy(owner.address, bridge.target, "opBNB USD", "opUSD");
+        token = await ERC20TokenFactory.deploy();
         await token.waitForDeployment();
 
         // Настройка разрешений моста
         await bridge.connect(owner).setSigner(signer.address, true);
         await bridge.connect(owner).setAllowedToken(token.target, true, BridgeMinAmount); 
         await bridge.connect(owner).setAllowedChain(HardhatChaindId, true);
+
+        // Настройка токена
+        await token.connect(owner).setUpBridge(bridge.target)
 
         return { bridge, token, owner, user, signer };
     });
